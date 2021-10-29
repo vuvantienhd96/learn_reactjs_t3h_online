@@ -4,7 +4,7 @@ import './hero.css';
 // what is JSX ?
 class Hero extends Component {
   render() {
-    let a = 0;
+    // let a = 0;
     let b = 2;
     let element = 'jj';
     let c = `sadaadadadad ${b}`;

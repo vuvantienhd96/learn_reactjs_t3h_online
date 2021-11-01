@@ -17,7 +17,7 @@ import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 // context
-import { Consumer } from './../context'
+import { Consumer } from '../../context'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,15 +38,6 @@ class Contact extends Component {
       expanded: false
     }
   }
-
-  // onShowClick(email, e) {
-  //   console.log('email', email);
-  //   console.log('e', e);
-
-  //   this.setState({
-  //     expanded: !this.state.expanded
-  //   })
-  // }
 
   onShowClick = (email, e) => {
     console.log('email', email);

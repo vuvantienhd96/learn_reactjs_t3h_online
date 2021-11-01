@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import './App.css';
-import Contacts from './components/Contacts';
-import Header from './components/Header';
+import Contacts from './components/contacts/Contacts';
+import AddContact from './components/contacts/AddContact';
+import AddContact2 from './components/contacts/AddContactUnControlledComponent';
+
+import Header from './components/layout/Header';
 
 // jsx khác html, babel
 // async await api, react
@@ -18,6 +21,9 @@ class App extends Component {
               name="JJ"
             />
             <Contacts />
+            {/* <AddContact /> */}
+            <AddContact2 />
+
           </div>
         </div>
       </Provider>

@@ -5,22 +5,22 @@ import Header from './components/Header';
 
 // jsx khác html, babel
 // async await api, react
+import { Provider } from './context'
 
 class App extends Component {
   render() {
     return (
       // jsx
-      <div className="App">
-        <div>
-          <Header
-            name="JJ"
-          />
-          <Contacts />
-          
-
-          
+      <Provider>
+        <div className="App">
+          <div>
+            <Header
+              name="JJ"
+            />
+            <Contacts />
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 

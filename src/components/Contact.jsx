@@ -16,6 +16,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+// context
+import { Consumer } from './../context'
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -39,7 +42,7 @@ class Contact extends Component {
   // onShowClick(email, e) {
   //   console.log('email', email);
   //   console.log('e', e);
-    
+
   //   this.setState({
   //     expanded: !this.state.expanded
   //   })
@@ -48,21 +51,18 @@ class Contact extends Component {
   onShowClick = (email, e) => {
     console.log('email', email);
     console.log('e', e);
-    
+
     this.setState({
       expanded: !this.state.expanded
-    }, 
-    () => console.log(1234));
+    },
+      () => console.log(1234));
 
     console.log(567)
-    
+
   }
 
-  onDeleteClick = (id) => {
-    // to do ...
-    // excute 
-    this.props.deleteClickHandle(id);
-    
+  onDeleteClick = (id, dispatch) => {
+    dispatch({ type: 'DELETE_CONTACT', payload: id});
   }
 
   render() {
@@ -70,52 +70,65 @@ class Contact extends Component {
     const { expanded } = this.state;
 
     return (
-      <React.Fragment>
-        <Card style={{ marginBottom: '20px' }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                R
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="share" onClick={this.onDeleteClick.bind(this, id)}>
-                <DeleteIcon  />
-              </IconButton>
-            }
-            title={name}
-            subheader={email}
-          />
-          {/* show info */}
+      <Consumer>
+        {
+          value => {
 
-          {
-            expanded && <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                {phone}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {email}
-              </Typography>
-            </CardContent>
+            const { dispatch } = value;
+
+            return (
+              <React.Fragment>
+                <Card style={{ marginBottom: '20px' }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                        R
+                      </Avatar>
+                    }
+                    action={
+                      <IconButton
+                        aria-label="share"
+                        onClick={this.onDeleteClick.bind(this, id, dispatch)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                    title={name}
+                    subheader={email}
+                  />
+                  {/* show info */}
+
+                  {
+                    expanded && <CardContent>
+                      <Typography variant="body2" color="text.secondary">
+                        {phone}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {email}
+                      </Typography>
+                    </CardContent>
+                  }
+
+                  <CardActions disableSpacing>
+                    <IconButton sx={{ color: expanded ? "red" : '' }} aria-label="add to favorites"
+                      onClick={this.onShowClick.bind(this, email)}>
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  </CardActions>
+                </Card>
+              </React.Fragment>
+            )
           }
-
-          <CardActions disableSpacing>
-            <IconButton sx={{ color: expanded ? "red" : '' }} aria-label="add to favorites" 
-              onClick={this.onShowClick.bind(this, email)}>
-              <FavoriteIcon  />
-            </IconButton>
-            <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-          </CardActions>
-        </Card>
-      </React.Fragment>
-    );
+        }
+      </Consumer>
+    )
   }
 }
 
 Contact.propTypes = {
   contact: PropTypes.object.isRequired,
-  deleteClickHandle: PropTypes.func.isRequired
 };
 export default Contact;

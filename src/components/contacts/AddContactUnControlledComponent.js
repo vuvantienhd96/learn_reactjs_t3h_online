@@ -24,6 +24,9 @@ class AddContact2 extends Component {
             email: this.emailInput.current.value,
             phone: this.phoneInput.current.value,
         }
+        // goi dispath here 
+
+        // set defaultProps ve ''
         console.log('contacs', contacs);
     }
     

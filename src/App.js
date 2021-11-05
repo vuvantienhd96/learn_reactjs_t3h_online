@@ -21,8 +21,8 @@ class App extends Component {
               name="JJ"
             />
             <Contacts />
-            {/* <AddContact /> */}
-            <AddContact2 />
+           <AddContact />
+            {/* <AddContact2 /> */}
 
           </div>
         </div>

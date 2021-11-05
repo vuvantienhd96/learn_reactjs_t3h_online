@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+import HomeIcon from '@mui/icons-material/Home';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import InfoIcon from '@mui/icons-material/Info';
 import './header.css';
+import { display } from '@mui/system';
 
 const Header = (props) => {
   console.log(props);
@@ -20,13 +25,20 @@ const Header = (props) => {
             {brand} {name}
           </a>
           <div>
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <a href="/" className="nav-link">
-                  home
-                </a>
-              </li>
-            </ul>
+            <nav>
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  <span style={{ display: 'flex' }}><Link to="/" className="nav-link">Home  <HomeIcon /></Link>
+                  </span>
+                </li>
+                <li className="nav-item">
+                  <span style={{ display: 'flex' }}><Link to="/addContact" className="nav-link">Add Contact <AddBusinessIcon /></Link></span>
+                </li>
+                <li className="nav-item">
+                  <span style={{ display: 'flex' }}><Link to="/about" className="nav-link">About <InfoIcon /></Link></span>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </nav>

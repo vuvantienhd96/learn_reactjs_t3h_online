@@ -15,6 +15,10 @@ const reducer = (state, action) => {
                 contacts: [action.payload, ...state.contacts]
                
             }
+        case 'UPDATE_CONTACT':
+            return {
+                // todo
+            }
         default:
             return state;
     }

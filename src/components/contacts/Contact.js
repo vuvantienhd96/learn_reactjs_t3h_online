@@ -15,6 +15,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Link } from "react-router-dom";
+
 
 // context
 import { Consumer } from '../../context'
@@ -40,20 +43,13 @@ class Contact extends Component {
   }
 
   onShowClick = (email, e) => {
-    console.log('email', email);
-    console.log('e', e);
-
     this.setState({
       expanded: !this.state.expanded
-    },
-      () => console.log(1234));
-
-    console.log(567)
-
+    });
   }
 
   onDeleteClick = (id, dispatch) => {
-    dispatch({ type: 'DELETE_CONTACT', payload: id});
+    dispatch({ type: 'DELETE_CONTACT', payload: id });
   }
 
   render() {
@@ -77,12 +73,14 @@ class Contact extends Component {
                       </Avatar>
                     }
                     action={
-                      <IconButton
-                        aria-label="share"
-                        onClick={this.onDeleteClick.bind(this, id, dispatch)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
+                      <React.Fragment>
+                        <IconButton
+                          aria-label="share"
+                          onClick={this.onDeleteClick.bind(this, id, dispatch)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </React.Fragment>
                     }
                     title={name}
                     subheader={email}
@@ -108,6 +106,14 @@ class Contact extends Component {
                     <IconButton aria-label="settings">
                       <MoreVertIcon />
                     </IconButton>
+                    <Link to={`/about/${id}`}>
+                      <IconButton
+                        aria-label="share"
+                        onClick={() => console.log('edit clicked !')}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
                   </CardActions>
                 </Card>
               </React.Fragment>

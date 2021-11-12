@@ -16,8 +16,11 @@ const reducer = (state, action) => {
                
             }
         case 'UPDATE_CONTACT':
+
             return {
                 // todo
+                ...state,
+                //contacts: state.contacts.push
             }
         default:
             return state;

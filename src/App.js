@@ -5,15 +5,16 @@ import AddContact from './components/contacts/AddContact';
 import AddContact2 from './components/contacts/AddContactUnControlledComponent';
 
 // khai bao router 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/layout/Header';
 
 // jsx khác html, babel
 // async await api, react
 import { Provider } from './context'
-import About from './components/pages/About';
+// import About from './components/pages/About';
 import Footer from './components/layout/Footer';
+import About2 from './components/pages/AboutClassComponent';
 
 class App extends Component {
   render() {
@@ -23,11 +24,15 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header name="JJ" />
-            <Routes>
-              <Route path="/" exact element={<Contacts />} />
-              <Route path="/addContact" exact element={<AddContact />} />
-              <Route path="/about/:id" exact element={<About />} />
-            </Routes>
+            <Switch>
+              <Route path="/" exact component={Contacts} />
+             
+              <Route path="/addContact" exact component={AddContact} />
+            
+              <Route path="/about/:id" exact component={About2} />
+                
+              
+            </Switch>
             <Footer />
             {/* <AddContact2 /> */}
           </div>

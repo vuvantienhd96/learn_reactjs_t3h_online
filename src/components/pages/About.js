@@ -16,14 +16,31 @@ export default function About() {
     const [dataDefault, setDataDefault] = useState({});
 
     // componetDidMount
+    // useEffect(() => {
+    //     console.log('đây là component did Mount');
+    // }, [])
+
+    
+
     // componentDidUpate(preProps, preState)
     useEffect(() => {
         if(dataDefault){
+            console.log('đây là component didUpdate');
             setName(dataDefault.name);
             setEmail(dataDefault.email)
             setPhone(dataDefault.phone)
         }
     }, [dataDefault])
+
+    // useEffect(() => {
+    //     let a = 'đây là component didUpdate For name'
+    //     console.log(a);
+    //     // component willUnMound
+    //     return () => {
+    //         console.log('unmount..........');
+    //         return a;
+    //     };
+    // }, [name])
     // onchange
     const onChange = (key, e) => {
         switch (key) {
@@ -38,11 +55,23 @@ export default function About() {
                 break;
         }
     }
+
+    const handlePushData = (dispatch) => {
+        let updateNewItem = {
+            id: 1,
+            name,
+            email,
+            phone
+        }
+        //dispatch({type: 'UPDATE_CONTACT', payload: updateNewItem})
+    }
+
     return (
         <Consumer>
             {value => {
                 const itemSelect = value.contacts.filter(el => el.id === params.id)[0];
                 setDataDefault(itemSelect)
+                const { dispatch } = value;
                 return (
                     <React.Fragment>
                         <h2 className="display-4">About Contact {params.id}</h2>
@@ -51,8 +80,7 @@ export default function About() {
                         <div className="card mb-3">
                             <div className="card-header">Add Contact</div>
                             <div className="card-body">
-                                <form 
-                                    //</div>onSubmit={this.handlePushData.bind(this, dispatch)
+                                <form onSubmit={handlePushData(dispatch)}
                                 >
                                     <TextInputGroup 
                                         label="Name" 

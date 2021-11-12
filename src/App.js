@@ -13,6 +13,7 @@ import Header from './components/layout/Header';
 // async await api, react
 import { Provider } from './context'
 import About from './components/pages/About';
+import Footer from './components/layout/Footer';
 
 class App extends Component {
   render() {
@@ -27,10 +28,11 @@ class App extends Component {
               <Route path="/addContact" exact element={<AddContact />} />
               <Route path="/about/:id" exact element={<About />} />
             </Routes>
-          
+            <Footer />
             {/* <AddContact2 /> */}
           </div>
         </Router>
+
       </Provider>
     );
   }

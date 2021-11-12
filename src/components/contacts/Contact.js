@@ -40,6 +40,7 @@ class Contact extends Component {
     this.state = {
       expanded: false
     }
+    console.log('this is contructor');
   }
 
   onShowClick = (email, e) => {
@@ -48,6 +49,21 @@ class Contact extends Component {
     });
   }
 
+  componentDidMount(){
+    console.log(' this is componentDidMount');
+  }
+
+  componentDidUpdate(revProps, prevState){
+    if(prevState.expanded !== this.state.expanded){
+      console.log('ban da thay doi some thing ...');
+    }
+  }
+
+  componentWillUnmount(){
+    console.log(' this is componentWillUnmount');
+  }
+
+
   onDeleteClick = (id, dispatch) => {
     dispatch({ type: 'DELETE_CONTACT', payload: id });
   }
@@ -55,7 +71,7 @@ class Contact extends Component {
   render() {
     const { name, email, phone, id } = this.props.contact;
     const { expanded } = this.state;
-
+    console.log(' this is rendering....');
     return (
       <Consumer>
         {

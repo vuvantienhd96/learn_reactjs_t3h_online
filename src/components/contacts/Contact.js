@@ -17,6 +17,7 @@ import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 
 // context
@@ -64,8 +65,14 @@ class Contact extends Component {
   }
 
 
-  onDeleteClick = (id, dispatch) => {
-    dispatch({ type: 'DELETE_CONTACT', payload: id });
+  onDeleteClick = async (id, dispatch) => {
+    try {
+      const res =  await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      dispatch({ type: 'DELETE_CONTACT', payload: id })
+    } catch (error) {
+      console.log('errrr', error);
+    }
+    
   }
 
   render() {
@@ -122,7 +129,7 @@ class Contact extends Component {
                     <IconButton aria-label="settings">
                       <MoreVertIcon />
                     </IconButton>
-                    <Link to={`/about/${id}`}>
+                    <Link to={`/edit/${id}`}>
                       <IconButton
                         aria-label="share"
                         onClick={() => console.log('edit clicked !')}

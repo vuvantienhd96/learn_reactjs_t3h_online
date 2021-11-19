@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios'
 
 const Context = React.createContext();
 
@@ -20,7 +21,10 @@ const reducer = (state, action) => {
             return {
                 // todo
                 ...state,
-                //contacts: state.contacts.push
+                contacts: state.contacts.map(
+                    contact => 
+                    contact.id === action.payload.id ? (contact = action.payload) : contact
+                )
             }
         default:
             return state;
@@ -29,27 +33,7 @@ const reducer = (state, action) => {
 
 export class Provider extends Component {
     state = {
-        contacts: [
-            {
-                id: '1',
-                name: 'TicTock',
-                email: 'Joe@mail.com',
-                phone: '09785173562'
-            },
-            {
-                id: '2',
-                name: 'Emilly',
-                email: 'emilly@mail.com',
-                phone: '+849278373'
-            },
-            {
-                id: '3',
-                name: 'adidas',
-                email: 'adidas@mail.com',
-                phone: '+841238373'
-            }
-
-        ],
+        contacts: [],
         isloading: false,
 
         dispatch: (action) => {
@@ -57,7 +41,20 @@ export class Provider extends Component {
         }
     }
 
+    async componentDidMount(){
+        try {
+            const res = await axios.get('https://jsonplaceholder.typicode.com/users') // 
+            this.setState({ contacts: res.data})
+        } catch (error) {
+            // alert ???
+            console.log('error!!!');
+        }
+        
+    }
+    
+
     render(){
+        console.log(this.state.contacts);
         return (
             <Context.Provider value={this.state}>
                 {this.props.children}

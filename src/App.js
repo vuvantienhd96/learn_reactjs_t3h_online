@@ -17,6 +17,7 @@ import Footer from './components/layout/Footer';
 import About2 from './components/pages/AboutClassComponent';
 import Test from './component/test';
 import { HookTest } from './component/test'
+import EditContact from './components/contacts/EditContact';
 
 class App extends Component {
   render() {
@@ -32,7 +33,7 @@ class App extends Component {
              
               <Route path="/addContact" exact component={AddContact} />
             
-              <Route path="/about/:id" exact component={About2} />
+              <Route path="/edit/:id" exact component={EditContact} />
                 
               
             </Switch>

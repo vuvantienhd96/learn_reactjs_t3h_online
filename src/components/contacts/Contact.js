@@ -50,17 +50,17 @@ class Contact extends Component {
   }
 
   componentDidMount(){
-    console.log(' this is componentDidMount');
+    //console.log(' this is componentDidMount');
   }
 
   componentDidUpdate(revProps, prevState){
     if(prevState.expanded !== this.state.expanded){
-      console.log('ban da thay doi some thing ...');
+      //console.log('ban da thay doi some thing ...');
     }
   }
 
   componentWillUnmount(){
-    console.log(' this is componentWillUnmount');
+    //console.log(' this is componentWillUnmount');
   }
 
 
@@ -71,7 +71,7 @@ class Contact extends Component {
   render() {
     const { name, email, phone, id } = this.props.contact;
     const { expanded } = this.state;
-    console.log(' this is rendering....');
+    //console.log(' this is rendering....');
     return (
       <Consumer>
         {

@@ -15,6 +15,8 @@ import { Provider } from './context'
 // import About from './components/pages/About';
 import Footer from './components/layout/Footer';
 import About2 from './components/pages/AboutClassComponent';
+import Test from './component/test';
+import { HookTest } from './component/test'
 
 class App extends Component {
   render() {
@@ -24,6 +26,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header name="JJ" />
+            <HookTest />
             <Switch>
               <Route path="/" exact component={Contacts} />
              

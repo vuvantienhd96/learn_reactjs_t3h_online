@@ -1,7 +1,6 @@
 import { switchCase } from '@babel/types';
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
-import { Consumer } from '../../context';
 import TextInputGroup from '../layout/TextInputGroup';
 
 export default function About() {

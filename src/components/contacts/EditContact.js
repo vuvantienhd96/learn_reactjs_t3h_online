@@ -1,8 +1,6 @@
 import { switchCase } from '@babel/types';
 
 import React, { Component } from 'react'
-// import { useParams } from "react-router-dom";
-import { Consumer } from '../../context';
 import TextInputGroup from '../layout/TextInputGroup';
 import axios from 'axios';
 
@@ -28,7 +26,7 @@ export default class EditContact extends Component {
             })
         }
     }
-    async componentDidMount(){
+    async componentDidMount() {
         const { id } = this.props.match.params;
         try {
             const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
@@ -38,19 +36,19 @@ export default class EditContact extends Component {
                 email: contact.email,
                 phone: contact.phone
             })
-           
+
         } catch (error) {
             console.log('error', error);
         }
-        
+
     }
 
 
     onChange = (key, e) => {
-        this.setState({ [e.target.name] : e.target.value })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    handlePushData = async (dispatch, e) => {
+    handlePushData = async ( e) => {
         e.preventDefault();
         let updateNewItem = {
             name: this.state.name,
@@ -60,83 +58,74 @@ export default class EditContact extends Component {
 
         try {
             const { id } = this.props.match.params;
-       
-            const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updateNewItem)
-            dispatch({type: 'UPDATE_CONTACT', payload: res.data})
-            this.setState = {
-                    name: '',
-                    email: '',
-                    phone: '',
-                    errors: {},
-                }
-            }
 
-            
+            const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updateNewItem)
+            this.setState = {
+                name: '',
+                email: '',
+                phone: '',
+                errors: {},
+            }
+        }
+
+
         catch (error) {
-           console.log('errr', error);
+            console.log('errr', error);
         }
         //
         this.props.history.push('/');
     }
     render() {
+        // breake rule reactjs
+        // this.setState({dataDefault: itemSelect})
+
+        const { name, phone, email, errors } = this.state
+
         return (
-            <Consumer>
-                {value => {
-                    const itemSelect = value.contacts.filter(el => el.id === this.props.match.params.id)[0];
-                    // breake rule reactjs
-                    // this.setState({dataDefault: itemSelect})
-                    const { dispatch } = value;
-                    const { name, phone, email, errors } = this.state
+            <React.Fragment>
+                <h2 className="display-4">About Contact {this.params}</h2>
+                table
+                <p className="text-secondary">Version 1.0</p>
+                <div className="card mb-3">
+                    <div className="card-header">Add Contact</div>
+                    <div className="card-body">
+                        <form onSubmit={(e) => this.handlePushData( e)}
+                        >
+                            <TextInputGroup
+                                label="Name"
+                                name="name"
+                                value={name}
+                                placeholder="name..."
+                                onChange={(e) => this.onChange('name', e)}
+                                error={errors.name}
+                            />
+                            <TextInputGroup
+                                label="Email"
+                                name="email"
+                                value={email}
+                                placeholder="email..."
+                                onChange={(e) => this.onChange('email', e)}
+                                type="email"
+                                error={errors.email}
+                            />
+                            <TextInputGroup
+                                label="Phone"
+                                name="phone"
+                                value={phone}
+                                placeholder="phone..."
+                                onChange={(e) => this.onChange('phone', e)}
+                                error={errors.phone}
+                            />
+                            <input
+                                type="submit"
+                                value="Add Contact"
+                                className="btn btn-light btn-block"
+                            />
+                        </form>
+                    </div>
+                </div>
 
-                    return (
-                        <React.Fragment>
-                            <h2 className="display-4">About Contact {this.params}</h2>
-                            table
-                            <p className="text-secondary">Version 1.0</p>
-                            <div className="card mb-3">
-                                <div className="card-header">Add Contact</div>
-                                <div className="card-body">
-                                    <form onSubmit={(e) => this.handlePushData(dispatch, e)}
-                                    >
-                                        <TextInputGroup
-                                            label="Name"
-                                            name="name"
-                                            value={name}
-                                            placeholder="name..."
-                                            onChange={(e) => this.onChange('name', e)}
-                                            error={errors.name}
-                                        />
-                                        <TextInputGroup
-                                            label="Email"
-                                            name="email"
-                                            value={email}
-                                            placeholder="email..."
-                                            onChange={(e) => this.onChange('email', e)}
-                                            type="email"
-                                            error={errors.email}
-                                        />
-                                        <TextInputGroup
-                                            label="Phone"
-                                            name="phone"
-                                            value={phone}
-                                            placeholder="phone..."
-                                            onChange={(e) => this.onChange('phone', e)}
-                                            error={errors.phone}
-                                        />
-                                        <input
-                                            type="submit"
-                                            value="Add Contact"
-                                            className="btn btn-light btn-block"
-                                        />
-                                    </form>
-                                </div>
-                            </div>
-
-                        </React.Fragment>
-                    )
-                }}
-            </Consumer>
-
+            </React.Fragment>
         )
     }
 }

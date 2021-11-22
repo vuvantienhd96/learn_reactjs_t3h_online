@@ -20,8 +20,6 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 
 
-// context
-import { Consumer } from '../../context'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -50,29 +48,28 @@ class Contact extends Component {
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     //console.log(' this is componentDidMount');
   }
 
-  componentDidUpdate(revProps, prevState){
-    if(prevState.expanded !== this.state.expanded){
+  componentDidUpdate(revProps, prevState) {
+    if (prevState.expanded !== this.state.expanded) {
       //console.log('ban da thay doi some thing ...');
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     //console.log(' this is componentWillUnmount');
   }
 
 
-  onDeleteClick = async (id, dispatch) => {
+  onDeleteClick = async (id) => {
     try {
-      const res =  await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-      dispatch({ type: 'DELETE_CONTACT', payload: id })
+      const res = await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
     } catch (error) {
       console.log('errrr', error);
     }
-    
+
   }
 
   render() {
@@ -80,70 +77,59 @@ class Contact extends Component {
     const { expanded } = this.state;
     //console.log(' this is rendering....');
     return (
-      <Consumer>
-        {
-          value => {
-
-            const { dispatch } = value;
-
-            return (
+      <React.Fragment>
+        <Card style={{ marginBottom: '20px' }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                R
+              </Avatar>
+            }
+            action={
               <React.Fragment>
-                <Card style={{ marginBottom: '20px' }}>
-                  <CardHeader
-                    avatar={
-                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
-                      </Avatar>
-                    }
-                    action={
-                      <React.Fragment>
-                        <IconButton
-                          aria-label="share"
-                          onClick={this.onDeleteClick.bind(this, id, dispatch)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </React.Fragment>
-                    }
-                    title={name}
-                    subheader={email}
-                  />
-                  {/* show info */}
-
-                  {
-                    expanded && <CardContent>
-                      <Typography variant="body2" color="text.secondary">
-                        {phone}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {email}
-                      </Typography>
-                    </CardContent>
-                  }
-
-                  <CardActions disableSpacing>
-                    <IconButton sx={{ color: expanded ? "red" : '' }} aria-label="add to favorites"
-                      onClick={this.onShowClick.bind(this, email)}>
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                    <Link to={`/edit/${id}`}>
-                      <IconButton
-                        aria-label="share"
-                        onClick={() => console.log('edit clicked !')}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Link>
-                  </CardActions>
-                </Card>
+                <IconButton
+                  aria-label="share"
+                  onClick={this.onDeleteClick.bind(this, id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </React.Fragment>
-            )
+            }
+            title={name}
+            subheader={email}
+          />
+          {/* show info */}
+
+          {
+            expanded && <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {phone}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {email}
+              </Typography>
+            </CardContent>
           }
-        }
-      </Consumer>
+
+          <CardActions disableSpacing>
+            <IconButton sx={{ color: expanded ? "red" : '' }} aria-label="add to favorites"
+              onClick={this.onShowClick.bind(this, email)}>
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+            <Link to={`/edit/${id}`}>
+              <IconButton
+                aria-label="share"
+                onClick={() => console.log('edit clicked !')}
+              >
+                <EditIcon />
+              </IconButton>
+            </Link>
+          </CardActions>
+        </Card>
+      </React.Fragment>
     )
   }
 }

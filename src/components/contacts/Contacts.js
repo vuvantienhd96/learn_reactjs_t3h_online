@@ -1,31 +1,41 @@
 import React, { Component } from 'react'
 import Contact from './Contact';
 
-import { Consumer } from '../../context';
+// redux
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { GET_CONTACTS } from '../../actions/type';
 
 class Contacts extends Component {
-   
-    render() {
 
+    componentDidMount(){
+        this.props.getContacts();
+    }
+
+    render() {
+        const { contacts } = this.props;
         return (
-            <Consumer>
-                {value => {
-                    const { contacts } = value;
-                    return (
-                        <React.Fragment>
-                            <h2 className="text-secondary">List Contacts</h2>
-                            {contacts.map((contact, index) =>
-                                <Contact
-                                    key={contact.id}
-                                    contact={contact}
-                                />
-                            )}
-                        </React.Fragment>
-                    )
-                }}
-            </Consumer>
+                <React.Fragment>
+                    <h2 className="text-secondary">List Contacts</h2>
+                    {contacts.map((contact, index) =>
+                        <Contact
+                            key={contact.id}
+                            contact={contact}
+                        />
+                    )}
+                </React.Fragment>
         )
     }
 }
 
-export default Contacts;
+
+
+const mapStateToProps = (state) => ({
+    contacts: state.contact.contacts 
+});
+
+const mapDispathToProps = (dispath) => ({
+    getContacts:  () => dispath({type: GET_CONTACTS})
+})
+
+export default connect(mapStateToProps, mapDispathToProps)( Contacts ) ;
